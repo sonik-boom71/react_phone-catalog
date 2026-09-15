@@ -2,13 +2,17 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { useT } from '../../context/LanguageContext';
+import { useToast } from '../../context/ToastContext';
 import { buildImageUrl } from '../../api/api';
 import styles from './CartPage.module.scss';
+
+const cartEmptyImg = `${import.meta.env.BASE_URL}img/cart-is-empty.png`;
 
 export const CartPage = () => {
   const { items, totalQuantity, totalPrice, increment, decrement, remove, clear } =
     useCart();
   const t = useT();
+  const { show } = useToast();
   const navigate = useNavigate();
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -16,7 +20,13 @@ export const CartPage = () => {
   const confirm = () => {
     clear();
     setShowConfirm(false);
+    show(t('toast.orderPlaced'));
     navigate('/');
+  };
+
+  const handleRemove = (id: number) => {
+    remove(id);
+    show(t('toast.removedFromCart'));
   };
 
   if (items.length === 0) {
@@ -31,6 +41,7 @@ export const CartPage = () => {
         </button>
         <h1 className={styles.h1}>{t('cart.title')}</h1>
         <div className={styles.empty}>
+          <img src={cartEmptyImg} alt="" className={styles.emptyImage} />
           <p>{t('cart.empty')}</p>
           <Link to="/phones" className={styles.shopLink}>
             {t('cart.continueShopping')}
@@ -59,7 +70,7 @@ export const CartPage = () => {
                 <button
                   type="button"
                   className={styles.removeBtn}
-                  onClick={() => remove(product.id)}
+                  onClick={() => handleRemove(product.id)}
                   aria-label="Remove from cart"
                 >
                   ×

@@ -9,6 +9,7 @@ import { FavoritesPage } from './pages/FavoritesPage';
 import { ContactsPage } from './pages/ContactsPage';
 import { RightsPage } from './pages/RightsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { ScrollTopButton } from './components/ScrollTopButton';
 import styles from './App.module.scss';
 
 export const App = () => (
@@ -33,5 +34,6 @@ export const App = () => (
       </Routes>
     </main>
     <Footer />
+    <ScrollTopButton />
   </div>
 );

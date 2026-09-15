@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { useProducts } from '../../context/ProductsContext';
 import { useT } from '../../context/LanguageContext';
+import { useRecentlyViewed } from '../../hooks/useRecentlyViewed';
+import { Product } from '../../types/Product';
 import { PicturesSlider } from '../../components/PicturesSlider';
 import { ProductsSlider } from '../../components/ProductsSlider';
 import { ShopByCategory } from '../../components/ShopByCategory';
@@ -9,7 +11,16 @@ import styles from './HomePage.module.scss';
 
 export const HomePage = () => {
   const { products, loading, error } = useProducts();
+  const { recentIds } = useRecentlyViewed();
   const t = useT();
+
+  const recentlyViewed = useMemo(
+    () =>
+      recentIds
+        .map(id => products.find(p => p.itemId === id))
+        .filter((p): p is Product => Boolean(p)),
+    [recentIds, products],
+  );
 
   const hotPrices = useMemo(
     () =>
@@ -49,6 +60,13 @@ export const HomePage = () => {
           />
           <ShopByCategory />
           <ProductsSlider title={t('home.hotPrices')} products={hotPrices} />
+
+          {recentlyViewed.length > 0 && (
+            <ProductsSlider
+              title={t('product.recentlyViewed')}
+              products={recentlyViewed}
+            />
+          )}
         </>
       )}
     </div>

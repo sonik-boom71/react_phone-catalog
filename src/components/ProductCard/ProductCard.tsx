@@ -5,6 +5,7 @@ import { buildImageUrl } from '../../api/api';
 import { useCart } from '../../context/CartContext';
 import { useFavorites } from '../../context/FavoritesContext';
 import { useT } from '../../context/LanguageContext';
+import { useToast } from '../../context/ToastContext';
 import styles from './ProductCard.module.scss';
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 export const ProductCard = ({ product, showDiscount = true }: Props) => {
   const { isInCart, add } = useCart();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { show } = useToast();
   const t = useT();
   const inCart = isInCart(product.id);
   const fav = isFavorite(product.id);
@@ -23,12 +25,14 @@ export const ProductCard = ({ product, showDiscount = true }: Props) => {
     e.preventDefault();
     if (!inCart) {
       add(product);
+      show(t('toast.addedToCart'));
     }
   };
 
   const handleFav = (e: React.MouseEvent) => {
     e.preventDefault();
     toggleFavorite(product);
+    show(t(fav ? 'toast.removedFromFavorites' : 'toast.addedToFavorites'));
   };
 
   return (

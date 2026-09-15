@@ -32,6 +32,7 @@ export const Header = () => {
   const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [langOpen, setLangOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,6 +45,10 @@ export const Header = () => {
     document.addEventListener('mousedown', onClick);
     return () => document.removeEventListener('mousedown', onClick);
   }, [langOpen]);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   const showSearch = ['/phones', '/tablets', '/accessories', '/favorites'].includes(
     pathname,
@@ -68,11 +73,32 @@ export const Header = () => {
     setSearchParams(next);
   };
 
+  const clearQuery = () => {
+    const next = new URLSearchParams(searchParams);
+    next.delete('query');
+    next.delete('page');
+    setSearchParams(next);
+  };
+
   const currentLocale = LOCALES.find(l => l.code === locale) ?? LOCALES[0];
 
   return (
     <header className={styles.header}>
       <div className={styles.left}>
+        <button
+          type="button"
+          className={styles.burger}
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label={menuOpen ? t('aria.closeMenu') : t('aria.menu')}
+          aria-expanded={menuOpen}
+        >
+          <span
+            className={classNames(styles.burgerLine, {
+              [styles.burgerLineOpen]: menuOpen,
+            })}
+          />
+        </button>
+
         <NavLink to="/" className={styles.logo}>
           <img src={logo} alt="Phone Catalog" />
         </NavLink>
@@ -98,6 +124,55 @@ export const Header = () => {
         </nav>
       </div>
 
+      {menuOpen && (
+        <nav className={styles.mobileNav}>
+          {showSearch && (
+            <div className={classNames(styles.search, styles.mobileSearch)}>
+              <input
+                type="text"
+                value={searchParams.get('query') ?? ''}
+                onChange={onQuery}
+                placeholder={placeholder}
+                className={styles.searchInput}
+              />
+              {searchParams.get('query') ? (
+                <button
+                  type="button"
+                  className={styles.searchClear}
+                  onClick={clearQuery}
+                  aria-label={t('aria.clearSearch')}
+                >
+                  ×
+                </button>
+              ) : (
+                <span className={styles.searchIcon} aria-hidden>
+                  ⌕
+                </span>
+              )}
+            </div>
+          )}
+
+          <ul className={styles.mobileNavList}>
+            {NAV_ITEMS.map(item => (
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  end={item.end}
+                  className={({ isActive }) =>
+                    classNames(styles.mobileNavLink, {
+                      [styles.mobileNavLinkActive]: isActive,
+                    })
+                  }
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {t(item.labelKey)}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
       <div className={styles.right}>
         {showSearch && (
           <div className={styles.search}>
@@ -108,9 +183,20 @@ export const Header = () => {
               placeholder={placeholder}
               className={styles.searchInput}
             />
-            <span className={styles.searchIcon} aria-hidden>
-              {searchParams.get('query') ? '×' : '⌕'}
-            </span>
+            {searchParams.get('query') ? (
+              <button
+                type="button"
+                className={styles.searchClear}
+                onClick={clearQuery}
+                aria-label={t('aria.clearSearch')}
+              >
+                ×
+              </button>
+            ) : (
+              <span className={styles.searchIcon} aria-hidden>
+                ⌕
+              </span>
+            )}
           </div>
         )}
 

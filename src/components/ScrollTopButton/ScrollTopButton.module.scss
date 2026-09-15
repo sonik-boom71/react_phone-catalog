@@ -1,0 +1,39 @@
+@import '../../styles/utils/variables';
+
+.btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-button-primary-bg;
+  color: $color-button-primary-text;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px $color-shadow;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity $transition-duration ease, transform $transition-duration ease,
+    box-shadow $transition-duration ease;
+  z-index: 90;
+
+  &:hover {
+    box-shadow: 0 6px 20px $color-shadow;
+  }
+
+  @media (max-width: 640px) {
+    right: 16px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}

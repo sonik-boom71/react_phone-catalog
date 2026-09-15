@@ -22,6 +22,103 @@
   gap: 24px;
 }
 
+.burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  flex: 0 0 auto;
+
+  @media (max-width: 640px) {
+    display: inline-flex;
+  }
+}
+
+.burgerLine {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  background: $color-text;
+  transition: background-color $transition-duration ease;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    background: $color-text;
+    transition: transform $transition-duration ease, top $transition-duration ease,
+      opacity $transition-duration ease;
+  }
+
+  &::before {
+    top: -6px;
+  }
+
+  &::after {
+    top: 6px;
+  }
+}
+
+.burgerLineOpen {
+  background: transparent;
+
+  &::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+}
+
+.mobileNav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: $color-surface;
+  border-bottom: 1px solid $color-separator;
+  box-shadow: 0 8px 16px $color-shadow;
+  z-index: 90;
+
+  @media (max-width: 640px) {
+    display: block;
+  }
+}
+
+.mobileNavList {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 16px 24px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $color-secondary;
+  border-bottom: 1px solid $color-separator;
+  transition: color $transition-duration ease, background-color $transition-duration ease;
+
+  &:hover {
+    background: $color-surface-2;
+  }
+}
+
+.mobileNavLinkActive {
+  color: $color-text;
+  background: $color-surface-2;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -108,8 +205,18 @@
   width: 220px;
 
   @media (max-width: 640px) {
-    width: 140px;
+    display: none;
   }
+}
+
+.mobileSearch {
+  display: flex;
+  height: 48px;
+  width: auto;
+  padding-inline: 16px;
+  border-left: none;
+  border-bottom: 1px solid $color-separator;
+  background: $color-surface-2;
 }
 
 .searchInput {
@@ -132,6 +239,23 @@
   font-size: 14px;
   color: $color-secondary;
   pointer-events: none;
+}
+
+.searchClear {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  color: $color-secondary;
+  flex: 0 0 auto;
+  transition: color $transition-duration ease;
+
+  &:hover {
+    color: $color-text;
+  }
 }
 
 .lang {

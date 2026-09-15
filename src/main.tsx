@@ -7,6 +7,7 @@ import { LanguageProvider } from './context/LanguageContext';
 import { ProductsProvider } from './context/ProductsContext';
 import { CartProvider } from './context/CartContext';
 import { FavoritesProvider } from './context/FavoritesContext';
+import { ToastProvider } from './context/ToastContext';
 import './styles/index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <ProductsProvider>
             <FavoritesProvider>
               <CartProvider>
-                <App />
+                <ToastProvider>
+                  <App />
+                </ToastProvider>
               </CartProvider>
             </FavoritesProvider>
           </ProductsProvider>

@@ -7,6 +7,8 @@ import { useProducts } from '../../context/ProductsContext';
 import { useCart } from '../../context/CartContext';
 import { useFavorites } from '../../context/FavoritesContext';
 import { useT } from '../../context/LanguageContext';
+import { useToast } from '../../context/ToastContext';
+import { useRecentlyViewed } from '../../hooks/useRecentlyViewed';
 import { TranslationKey } from '../../i18n/translations';
 import { Loader } from '../../components/Loader';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
@@ -57,6 +59,8 @@ export const ProductDetailsPage = () => {
   const { products } = useProducts();
   const { isInCart, add } = useCart();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { show } = useToast();
+  const { recentIds, addRecent } = useRecentlyViewed();
   const t = useT();
 
   const [details, setDetails] = useState<ProductDetails | null>(null);
@@ -91,6 +95,19 @@ export const ProductDetailsPage = () => {
       .slice(0, 12);
   }, [products, productId, details]);
 
+  useEffect(() => {
+    if (details) addRecent(details.id);
+  }, [details, addRecent]);
+
+  const recentlyViewed = useMemo(
+    () =>
+      recentIds
+        .filter(id => id !== productId)
+        .map(id => products.find(p => p.itemId === id))
+        .filter((p): p is Product => Boolean(p)),
+    [recentIds, products, productId],
+  );
+
   if (loading) {
     return (
       <div className={styles.page}>
@@ -121,10 +138,16 @@ export const ProductDetailsPage = () => {
   const fav = productInList ? isFavorite(productInList.id) : false;
 
   const handleAdd = () => {
-    if (productInList && !inCart) add(productInList);
+    if (productInList && !inCart) {
+      add(productInList);
+      show(t('toast.addedToCart'));
+    }
   };
   const handleFav = () => {
-    if (productInList) toggleFavorite(productInList);
+    if (productInList) {
+      toggleFavorite(productInList);
+      show(t(fav ? 'toast.removedFromFavorites' : 'toast.addedToFavorites'));
+    }
   };
 
   const switchTo = (color?: string, capacity?: string) => {
@@ -344,6 +367,13 @@ export const ProductDetailsPage = () => {
         <ProductsSlider
           title={t('product.youMayAlsoLike')}
           products={suggestions}
+        />
+      )}
+
+      {recentlyViewed.length > 0 && (
+        <ProductsSlider
+          title={t('product.recentlyViewed')}
+          products={recentlyViewed}
         />
       )}
     </div>

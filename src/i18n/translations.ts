@@ -17,6 +17,9 @@ const en: Dict = {
   'aria.cart': 'Cart',
   'aria.toggleTheme': 'Toggle theme',
   'aria.language': 'Language',
+  'aria.menu': 'Menu',
+  'aria.closeMenu': 'Close menu',
+  'aria.clearSearch': 'Clear search',
   'search.phones': 'Search in phones...',
   'search.tablets': 'Search in tablets...',
   'search.accessories': 'Search in accessories...',
@@ -52,6 +55,7 @@ const en: Dict = {
   'product.about': 'About',
   'product.techSpecs': 'Tech specs',
   'product.youMayAlsoLike': 'You may also like',
+  'product.recentlyViewed': 'Recently viewed',
   'product.notFound': 'Product not found',
   'product.backToHome': 'Back to home',
   'common.back': 'Back',
@@ -123,6 +127,12 @@ const en: Dict = {
     'We store cart and favorites locally in your browser. We do not track you, do not run third-party analytics, and do not sell anything you do here.',
   'rights.contactsLine': 'Got a legal question? Reach us via the',
   'rights.contactsLink': 'contacts page',
+  'toast.addedToCart': 'Added to cart',
+  'toast.removedFromCart': 'Removed from cart',
+  'toast.cartCleared': 'Cart cleared',
+  'toast.orderPlaced': 'Order placed! Thanks for shopping with us.',
+  'toast.addedToFavorites': 'Added to favorites',
+  'toast.removedFromFavorites': 'Removed from favorites',
 };
 
 const ru: Dict = {
@@ -134,6 +144,9 @@ const ru: Dict = {
   'aria.cart': 'Корзина',
   'aria.toggleTheme': 'Переключить тему',
   'aria.language': 'Язык',
+  'aria.menu': 'Меню',
+  'aria.closeMenu': 'Закрыть меню',
+  'aria.clearSearch': 'Очистить поиск',
   'search.phones': 'Поиск среди телефонов...',
   'search.tablets': 'Поиск среди планшетов...',
   'search.accessories': 'Поиск среди аксессуаров...',
@@ -169,6 +182,7 @@ const ru: Dict = {
   'product.about': 'Об устройстве',
   'product.techSpecs': 'Характеристики',
   'product.youMayAlsoLike': 'Вам также может понравиться',
+  'product.recentlyViewed': 'Недавно просмотренные',
   'product.notFound': 'Товар не найден',
   'product.backToHome': 'На главную',
   'common.back': 'Назад',
@@ -240,6 +254,12 @@ const ru: Dict = {
     'Корзина и избранное хранятся локально в браузере. Мы не следим за вами, не запускаем сторонние аналитики и не продаём то, что вы тут делаете.',
   'rights.contactsLine': 'Юридические вопросы? Пишите через',
   'rights.contactsLink': 'страницу контактов',
+  'toast.addedToCart': 'Добавлено в корзину',
+  'toast.removedFromCart': 'Удалено из корзины',
+  'toast.cartCleared': 'Корзина очищена',
+  'toast.orderPlaced': 'Заказ оформлен! Спасибо за покупку.',
+  'toast.addedToFavorites': 'Добавлено в избранное',
+  'toast.removedFromFavorites': 'Удалено из избранного',
 };
 
 const uk: Dict = {
@@ -251,6 +271,9 @@ const uk: Dict = {
   'aria.cart': 'Кошик',
   'aria.toggleTheme': 'Перемкнути тему',
   'aria.language': 'Мова',
+  'aria.menu': 'Меню',
+  'aria.closeMenu': 'Закрити меню',
+  'aria.clearSearch': 'Очистити пошук',
   'search.phones': 'Пошук серед телефонів...',
   'search.tablets': 'Пошук серед планшетів...',
   'search.accessories': 'Пошук серед аксесуарів...',
@@ -286,6 +309,7 @@ const uk: Dict = {
   'product.about': 'Про пристрій',
   'product.techSpecs': 'Характеристики',
   'product.youMayAlsoLike': 'Вам може сподобатись',
+  'product.recentlyViewed': 'Нещодавно переглянуті',
   'product.notFound': 'Товар не знайдено',
   'product.backToHome': 'На головну',
   'common.back': 'Назад',
@@ -357,6 +381,12 @@ const uk: Dict = {
     'Кошик та обране зберігаються локально у браузері. Ми не стежимо за вами, не запускаємо сторонні аналітики і не продаємо те, що ви тут робите.',
   'rights.contactsLine': 'Юридичні питання? Пишіть через',
   'rights.contactsLink': 'сторінку контактів',
+  'toast.addedToCart': 'Додано до кошика',
+  'toast.removedFromCart': 'Видалено з кошика',
+  'toast.cartCleared': 'Кошик очищено',
+  'toast.orderPlaced': 'Замовлення оформлено! Дякуємо за покупку.',
+  'toast.addedToFavorites': 'Додано до обраного',
+  'toast.removedFromFavorites': 'Видалено з обраного',
 };
 
 export const TRANSLATIONS: Record<Locale, Dict> = { en, ru, uk };
